@@ -1,0 +1,174 @@
+.Dd 16/4/20               \" DATE
+.Dt ./hsh 1      \" Program name and manual section number
+.Os KC-DO
+.Sh NAME                 \" Section Header - required - don't modify
+.Nm ./hsh,
+.\" Use .Nm macro to designate other names for the documented program.
+.Nd Holberton Simple Shell a command language interpreter that executes commands that are read
+ from the standard input.
+.Sh SYNOPSIS             \" Section Header - required - don't modify
+.Nm
+
+.P
+
+
+ ./hsh
+
+echo command | ./hsh
+
+cat file | ./hsh
+
+.Sh DESCRIPTION          \" Section Header - required - don't modify
+This manual page explains the
+.Nm
+work flow and implementation cases, this program will execute directly any other
+software that you want to execute in your system if it can find it directly, or
+in your PATH environment variable.
+
+
+Each input receive in interactive mode will increase the line counter, if a command
+can not be found or execute it will return the line counter, and the respective
+message inmediatly.
+
+
+.RI "Can also work in non-interactive mode" by sending data using the standard input.
+
+.Sh RETURN VALUE
+If you want to exit with an specific exit status you can use:
+Exit Status, in other case the system will return the following status:
+
+
+.B
+0:
+Everything ok - No error detected in the last command
+
+
+.B
+2:
+Misuse of shell builtins - Missing keyword or command, or permission problem
+
+
+.B
+126:
+Command invoked cannot execute - Permission problem or command is not an executable
+
+
+.B
+127:
+Command not found - Possible problem with $PATH or a typo
+
+.Sh Example
+
+~./hsh
+
+$ ls
+
+.ul
+create_process.c  holberton.h  main.c              my_cmd              _puts.c
+
+.ul
+AUTHORS         env_utils.c       hsh          man_1_simple_shell
+.ul
+process_selector.c  README.md    test_ls_2
+.ul
+built_interr.c  errno_lin_st.c    LICENSE      mem_utils.c         _putchar.c          str_utils.c
+
+
+$ /bin/ls
+
+.ul
+create_process.c  holberton.h  main.c              my_cmd              _puts.c
+
+.ul
+AUTHORS         env_utils.c       hsh          man_1_simple_shell
+.ul
+process_selector.c  README.md    test_ls_2
+.ul
+built_interr.c  errno_lin_st.c    LICENSE      mem_utils.c         _putchar.c          str_utils.c
+
+
+$ pwd
+
+.ul
+/home/vagrant/simple_shell
+
+
+$ env
+
+.ul
+LESSOPEN=| /usr/bin/lesspipe %s
+
+.ul
+XDG_RUNTIME_DIR=/run/user/1000
+
+.ul
+VERBOSE_LOGGING=true
+
+.ul
+LESSCLOSE=/usr/bin/lesspipe %s %s
+
+.ul
+COLORTERM=truecolor
+
+.ul
+_=/usr/bin/env
+
+.ul
+OLDPWD=/home/vagrant
+
+
+$ exit 25
+
+~$?
+
+.ul
+25: command not found
+
+
+~ echo "ls" | ./hsh
+
+.ul
+create_process.c  holberton.h  main.c              my_cmd              _puts.c
+
+.ul
+AUTHORS         env_utils.c       hsh          man_1_simple_shell
+.ul
+process_selector.c  README.md    test_ls_2
+.ul
+built_interr.c  errno_lin_st.c    LICENSE      mem_utils.c         _putchar.c          str_utils.c
+
+
+~ echo "pwd" | ./hsh
+
+.ul
+/home/vagrant/simple_shell
+
+
+~ echo "/bin/ls" | ./hsh
+
+.ul
+create_process.c  holberton.h  main.c              my_cmd              _puts.c
+
+.ul
+AUTHORS         env_utils.c       hsh          man_1_simple_shell
+.ul
+process_selector.c  README.md    test_ls_2
+.ul
+built_interr.c  errno_lin_st.c    LICENSE      mem_utils.c         _putchar.c          str_utils.c
+
+
+.Sh SHELL GRAMMAR
+
+.SS Simple Commands
+
+
+A simple command is a sequence of optional variable assignments followed by blank-separated
+words and redirections, and terminated by a control operator.
+The first word specifies the command to be executed,
+and is passed as argument zero.
+The remaining words are passed as arguments to the invoked command.
+.Sh SEE ALSO
+.ul
+bash(1)
+.Sh AUTHOR
+Karen Campo & David Orejuela
