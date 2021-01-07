@@ -32,6 +32,10 @@ int new_pro(creator_args *arg)
 			break;
 		case DRIGTH_REDIR:
 			dright_redir(arg);
+			break;
+		case LEFT_REDIR:
+			left_redir(arg);
+			break;
 		}
 	}
 	return (*(arg->status));
