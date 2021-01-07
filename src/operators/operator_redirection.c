@@ -26,6 +26,7 @@ void right_redir(creator_args *arg)
 		fprintf(stderr, SYNTAX_ERROR, arg->argv[0], *arg->counter);
 		free_andnext(arg);
 		free_andnext(arg);
+		*arg->status = 2;
 		return;
 	}
 	fd = open(file_pointer->command[0], WRITE_CREATE, NORMAL_MODE);
@@ -35,6 +36,7 @@ void right_redir(creator_args *arg)
 		perror(message);
 		free_andnext(arg);
 		free_andnext(arg);
+		*arg->status = 2;
 		return;
 	}
 	std_outcpy = dup(STDOUT_FILENO);
@@ -46,6 +48,7 @@ void right_redir(creator_args *arg)
 		close(fd);
 		free_andnext(arg);
 		free_andnext(arg);
+		*arg->status = 2;
 		return;
 	}
 	execute_command(arg);
