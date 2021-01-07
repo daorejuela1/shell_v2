@@ -27,6 +27,9 @@ int new_pro(creator_args *arg)
 		case OR_COMP:
 			or_logic(arg);
 			break;
+		case RIGTH_REDIR:
+			right_redir(arg);
+			break;
 		}
 	}
 	return (*(arg->status));

@@ -13,6 +13,7 @@
 #include <errno.h>
 
 #define UNUSED(x) (void)(x)
+#define RIGTH_REDIR 3
 #define AND_COMP 2
 #define OR_COMP  1
 #define LAST_COM 0
