@@ -6,6 +6,7 @@ static int command_end;
 static token tokens[] = {
 		{"&&", AND_COMP, 2},
 		{"||", OR_COMP, 2},
+		{">>", DRIGTH_REDIR, 2},
 		{">", RIGTH_REDIR, 1},
 		{";", LAST_COM, 1},
 	};
