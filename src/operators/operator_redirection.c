@@ -10,6 +10,7 @@
 #define FILENAME (file_pointer->command[0])
 #define SYNTAX_ERROR "%s: %d: Syntax error: newline unexpected\n"
 #define CREATE_ERROR "%s: %d: cannot create %s"
+#define OPEN_ERROR "%s: %d: cannot open %s"
 #define NEXT_EXIST (file_pointer->next != NULL)
 /**
  * right_redir - logic to be used when having one redirection >
@@ -143,7 +144,7 @@ void left_redir(creator_args *arg)
 		fd = open(file_pointer->command[0], READ, NORMAL_MODE);
 		if (fd == -1)
 		{
-			sprintf(message, CREATE_ERROR, arg->argv[0], *arg->counter, FILENAME);
+			sprintf(message, OPEN_ERROR, arg->argv[0], *arg->counter, FILENAME);
 			perror(message);
 			for (i = 0; i <= quantity; i++)
 				free_andnext(arg);
