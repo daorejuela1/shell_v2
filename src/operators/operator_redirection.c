@@ -123,13 +123,11 @@ void left_redir(creator_args *arg)
 	c_list *file_pointer = NULL;
 	int fd = 0, stdin_cpy = 0, quantity = 0, i = 0;
 	char message[1024];
+	struct stat st;
 
 	file_pointer = arg->com_list;
 	while (file_pointer && file_pointer->status == LEFT_REDIR && NEXT_EXIST)
-	{
-		quantity++;
-		file_pointer = file_pointer->next;
-	}
+		quantity++, file_pointer = file_pointer->next;
 	if (!file_pointer || !file_pointer->command || !file_pointer->command[0])
 	{
 		fprintf(stderr, SYNTAX_ERROR, arg->argv[0], *arg->counter + 1);
@@ -145,7 +143,10 @@ void left_redir(creator_args *arg)
 		if (fd == -1)
 		{
 			sprintf(message, OPEN_ERROR, arg->argv[0], *arg->counter, FILENAME);
-			perror(message);
+			if (stat(file_pointer->command[0], &st) != 0)
+				fprintf(stderr, "%s: %s\n", message, "No such file");
+			else
+				perror(message);
 			for (i = 0; i <= quantity; i++)
 				free_andnext(arg);
 			*arg->status = 2;
@@ -153,11 +154,9 @@ void left_redir(creator_args *arg)
 		}
 		file_pointer = file_pointer->next;
 	}
-	stdin_cpy = dup(STDIN_FILENO);
-	dup2(fd, STDIN_FILENO);
+	stdin_cpy = dup(STDIN_FILENO), dup2(fd, STDIN_FILENO);
 	execute_command(arg);
 	for (i = 0; i < quantity; i++)
 		free_andnext(arg);
-	dup2(stdin_cpy, STDIN_FILENO);
-	close(fd);
+	dup2(stdin_cpy, STDIN_FILENO), close(fd);
 }
