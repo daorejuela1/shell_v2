@@ -3,15 +3,18 @@
 #include "../parsers/parsers.h"
 #include "../messages/messages.h"
 #include "../processes/processes.h"
+#include "../getline/_getline.h"
 #define WRITE_CREATE (O_WRONLY | O_CREAT | O_TRUNC)
 #define READ (O_RDONLY)
 #define WRITE_APPEND (O_WRONLY | O_CREAT | O_APPEND)
 #define NORMAL_MODE (S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH)
 #define FILENAME (file_pointer->command[0])
+#define DELIMETER (delimeter->command[0])
 #define SYNTAX_ERROR "%s: %d: Syntax error: newline unexpected\n"
 #define CREATE_ERROR "%s: %d: cannot create %s"
 #define OPEN_ERROR "%s: %d: cannot open %s"
 #define NEXT_EXIST (file_pointer->next != NULL)
+#define NEXTDEL_EXIST (delimeter->next != NULL)
 /**
  * right_redir - logic to be used when having one redirection >
  * @arg: structure that contains all the data
@@ -154,6 +157,54 @@ void left_redir(creator_args *arg)
 		}
 		file_pointer = file_pointer->next;
 	}
+	stdin_cpy = dup(STDIN_FILENO), dup2(fd, STDIN_FILENO);
+	execute_command(arg);
+	for (i = 0; i < quantity; i++)
+		free_andnext(arg);
+	dup2(stdin_cpy, STDIN_FILENO), close(fd);
+}
+/**
+ * heredoc - logic to be used when having dounle input redirection <<
+ * @arg: structure that contains all the data
+ *
+ * Returns: Nothing
+ */
+void heredoc(creator_args *arg)
+{
+	c_list *delimeter = NULL;
+	int fd = 0, read = 0, stdin_cpy = 0, quantity = 0, i = 0;
+	char *temp_file = "/tmp/shell_v2heredoc_daor1475";
+	char *line = NULL;
+	size_t len = 0;
+
+	delimeter = arg->com_list;
+	while (delimeter && delimeter->status == HEREDOC && NEXTDEL_EXIST)
+		quantity++, delimeter = delimeter->next;
+	if (!delimeter || !delimeter->command || !delimeter->command[0])
+	{
+		fprintf(stderr, SYNTAX_ERROR, arg->argv[0], *arg->counter + 1);
+		for (i = 0; i <= quantity; i++)
+			free_andnext(arg);
+		*arg->status = 2;
+		return;
+	}
+	delimeter = arg->com_list->next;
+	fd = open(temp_file, WRITE_CREATE, NORMAL_MODE);
+	while (1) /*interactive mode*/
+	{
+		_puts("> ");
+		read =  getline(&line, &len, stdin);
+		if (read == EOF)
+		{
+			_puts("\n");
+			break;
+		}
+		if (_strncmp(line, *delimeter->command, _strlen(line) - 1) == 0)
+			break;
+		write(fd, line, _strlen(line));
+	}
+	close(fd);
+	fd = open(temp_file, READ);
 	stdin_cpy = dup(STDIN_FILENO), dup2(fd, STDIN_FILENO);
 	execute_command(arg);
 	for (i = 0; i < quantity; i++)

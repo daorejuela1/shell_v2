@@ -36,6 +36,9 @@ int new_pro(creator_args *arg)
 		case LEFT_REDIR:
 			left_redir(arg);
 			break;
+		case HEREDOC:
+			heredoc(arg);
+			break;
 		}
 	}
 	return (*(arg->status));
