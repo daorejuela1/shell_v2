@@ -203,7 +203,7 @@ void heredoc(creator_args *arg)
 			break;
 		write(fd, line, _strlen(line));
 	}
-	close(fd);
+	free(line), close(fd);
 	fd = open(temp_file, READ);
 	stdin_cpy = dup(STDIN_FILENO), dup2(fd, STDIN_FILENO);
 	execute_command(arg);
