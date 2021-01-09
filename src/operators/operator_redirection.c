@@ -196,7 +196,7 @@ void heredoc(creator_args *arg)
 		read = getline(&line, &len, stdin);
 		if (read == EOF)
 			break;
-		if (_strncmp(line, *delimeter->command, _strlen(line) - 1) == 0)
+		if (_strncmp(line, DELIMETER, _strlen(DELIMETER)) == 0)
 			break;
 		write(fd, line, _strlen(line));
 	}
