@@ -39,6 +39,9 @@ int new_pro(creator_args *arg)
 		case HEREDOC:
 			heredoc(arg);
 			break;
+		case PIPELINE:
+			pipeline(arg);
+			break;
 		}
 	}
 	return (*(arg->status));

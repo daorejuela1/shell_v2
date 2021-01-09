@@ -195,6 +195,8 @@ void heredoc(creator_args *arg)
 			_puts("> ");
 		read = getline(&line, &len, stdin);
 		if (read == EOF)
+			if (isatty(STDIN_FILENO))
+				_puts("\n");
 			break;
 		if (_strncmp(line, DELIMETER, _strlen(DELIMETER)) == 0)
 			break;

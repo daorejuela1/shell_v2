@@ -10,6 +10,7 @@ static token tokens[] = {
 		{">", RIGTH_REDIR, 1},
 		{"<<", HEREDOC, 2},
 		{"<", LEFT_REDIR, 1},
+		{"|", PIPELINE, 1},
 		{";", LAST_COM, 1},
 	};
 /**
@@ -29,7 +30,7 @@ static char *command_separator(char *string, int *status)
 	for (i = command_end; i < word_len; i++)
 	{
 		end_here = 0;
-		for (j = 0; j < 7; j++)
+		for (j = 0; j < 8; j++)
 		{
 			if (tokens[j].len == 2 && string[i] == *tokens[j].symbol)
 			{

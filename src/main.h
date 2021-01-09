@@ -12,7 +12,11 @@
 #include <fcntl.h>
 #include <errno.h>
 
+#define WRITE_END 1
+#define READ_END 0
+
 #define UNUSED(x) (void)(x)
+#define PIPELINE 7
 #define HEREDOC 6
 #define LEFT_REDIR 5
 #define DRIGTH_REDIR 4
