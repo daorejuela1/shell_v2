@@ -195,11 +195,7 @@ void heredoc(creator_args *arg)
 			_puts("> ");
 		read = getline(&line, &len, stdin);
 		if (read == EOF)
-		{
-		if (isatty(STDIN_FILENO))
-			_puts("\n");
 			break;
-		}
 		if (_strncmp(line, *delimeter->command, _strlen(line) - 1) == 0)
 			break;
 		write(fd, line, _strlen(line));
