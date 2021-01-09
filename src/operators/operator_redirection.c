@@ -173,8 +173,7 @@ void heredoc(creator_args *arg)
 {
 	c_list *delimeter = NULL;
 	int fd = 0, read = 0, stdin_cpy = 0, quantity = 0, i = 0;
-	char *temp_file = "/tmp/shell_v2heredoc_daor1475";
-	char *line = NULL;
+	char *temp_file = "/tmp/shell_v2heredoc_daor1475", *line = NULL;
 	size_t len = 0;
 
 	delimeter = arg->com_list;
@@ -192,10 +191,12 @@ void heredoc(creator_args *arg)
 	fd = open(temp_file, WRITE_CREATE, NORMAL_MODE);
 	while (1) /*interactive mode*/
 	{
-		_puts("> ");
-		read =  getline(&line, &len, stdin);
+		if (isatty(STDIN_FILENO))
+			_puts("> ");
+		read = getline(&line, &len, stdin);
 		if (read == EOF)
 		{
+		if (isatty(STDIN_FILENO))
 			_puts("\n");
 			break;
 		}
