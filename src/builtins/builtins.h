@@ -33,4 +33,5 @@ int _setenv(creator_args *param, char **command, int *data_length);
 int initialize_env(void);
 void free_env(void);
 int alias_logic(creator_args *param, char **command, int *data_length);
+int help_logic(creator_args *param, char **command, int *data_length);
 #endif

@@ -1,0 +1,5 @@
+setenv: setenv [name] [value]
+    Sets a new enviromental variable.
+    
+	If the variable is already defined it will be overwritten otherwise a new
+	variable is created.

@@ -1,0 +1,5 @@
+unsetenv: unsetenv [name]
+    Unsets a enviromental variable.
+    
+	If the variable is already defined it will be deleted, otherwise
+	does nothing.

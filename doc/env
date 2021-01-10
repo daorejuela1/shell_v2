@@ -1,0 +1,4 @@
+env: env
+    Prints the current environment.
+    
+    Prints all the current environment variables no arguments are needed.

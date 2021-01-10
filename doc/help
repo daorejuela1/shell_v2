@@ -1,0 +1,9 @@
+./hshell version 2.2 created by David Orejuela
+These ./hshell commands are defined internally.  Type `help' to see this list.
+Type `help name' to find out more about the function `name'.
+A star (*) next to a name means that the command is disabled.
+
+alias [name] [value]					setenv [name] [value]
+cd [path]								unsetenv [name] [value]
+env										history*
+exit [n]
