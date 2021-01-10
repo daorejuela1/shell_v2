@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 	signal(SIGINT, handler_ctrlc), initialize_env();
 	c_args.line = &line, c_args.argv = argv, c_args.aliases = NULL;
 	c_args.counter = &counter, c_args.start = &start, c_args.status = &status;
-	c_args.line = &line; /*startup_file(&c_args);*/
+	startup_file(&c_args), c_args.line = &line;
 	if (argc > 1)
 		status = open_file(&c_args, argv[1]);
 	else if (isatty(STDIN_FILENO))
