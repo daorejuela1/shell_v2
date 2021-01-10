@@ -105,6 +105,10 @@ int export_history(creator_args arg)
 		_strcat(home, "/.hsh_history");
 	}
 	else
+	{
+	for (i = 0; i < HISTORY_BUFFER; i++)
+		free(history[i % HISTORY_BUFFER]);
+	}
 		return (0);
 	fd = open(home, O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR);
 	free(home);
