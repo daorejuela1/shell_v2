@@ -19,8 +19,7 @@ int main(int argc, char *argv[])
 	signal(SIGINT, handler_ctrlc), initialize_env();
 	c_args.line = &line, c_args.argv = argv, c_args.aliases = NULL;
 	c_args.counter = &counter, c_args.start = &start, c_args.status = &status;
-	startup_file(&c_args);
-	c_args.line = &line;
+	init_history(&c_args), startup_file(&c_args), c_args.line = &line;
 	if (argc > 1)
 		status = open_file(&c_args, argv[1]);
 	else if (isatty(STDIN_FILENO))
@@ -49,6 +48,7 @@ int main(int argc, char *argv[])
 			status = (_strcmp(line, "env\n") == 0) ? print_env() : new_pro(&c_args);
 		}
 	}
+	export_history(c_args);
 	free(line), free_env(), alias_free(c_args);
 	return (status);
 }

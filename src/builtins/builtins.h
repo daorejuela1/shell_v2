@@ -34,4 +34,8 @@ int initialize_env(void);
 void free_env(void);
 int alias_logic(creator_args *param, char **command, int *data_length);
 int help_logic(creator_args *param, char **command, int *data_length);
+int print_history(creator_args *param, char **command, int *data_length);
+int save_history(creator_args param, char *line);
+int init_history(creator_args *arg);
+int export_history(creator_args arg);
 #endif

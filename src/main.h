@@ -12,6 +12,7 @@
 #include <fcntl.h>
 #include <errno.h>
 
+#define HISTORY_BUFFER 4096
 #define WRITE_END 1
 #define READ_END 0
 

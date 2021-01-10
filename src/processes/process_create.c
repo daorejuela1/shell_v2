@@ -12,6 +12,7 @@
  */
 int new_pro(creator_args *arg)
 {
+	save_history(*arg, *(arg->line));
 	*(arg->line) = line_parser(*arg, *(arg->line));
 	arg->com_list = command_getter(*(arg->line), arg);
 	while (arg->com_list)

@@ -18,10 +18,11 @@ int (*get_op_func(char *string))(creator_args *, char **, int *)
 	{"alias", alias_logic},
 	{"cd", cd_logic},
 	{"help", help_logic},
+	{"history", print_history},
 	{NULL, NULL}
 	};
 
-	for (i = 0; i < 6; i++)
+	for (i = 0; i < 7; i++)
 	{
 		if (_strcmp(string, command[i].command) == 0)
 			return (command[i].f);
