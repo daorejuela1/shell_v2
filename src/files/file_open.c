@@ -31,7 +31,7 @@ int startup_file(creator_args *arg)
 		return (0);
 	while ((line = _getline(fd)))
 	{
-	arg->counter++; /*non interactive mode*/
+	*arg->counter = *arg->counter + 1; /*non interactive mode*/
 	*arg->status = (_strcmp(line, "env\n") == 0) ? print_env() : new_pro(arg);
 	free(line);
 	}
@@ -57,7 +57,7 @@ int open_file(creator_args *arg, char *file_toopen)
 		return (errno_lin_st(arg->argv[0], file_toopen));
 	while ((line = _getline(fd)))
 	{
-	arg->counter++; /*non interactive mode*/
+	*arg->counter = *arg->counter + 1; /*non interactive mode*/
 	*arg->status = (_strcmp(line, "env\n") == 0) ? print_env() : new_pro(arg);
 	free(line);
 	}
