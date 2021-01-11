@@ -237,6 +237,12 @@ Unsets a enviromental variable.
 
 ~ unsetenv [name]
 
+.Ss history
+
+Prints the commands used in the session
+
+~ history
+
 .Sh SHELL GRAMMAR
 
 .Ss Simple Commands
