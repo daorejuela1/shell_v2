@@ -75,7 +75,8 @@ According to the status flag, it will go to a different operator in the operator
  9. close reading-end of the pipe
  10. Execute the command to the right of the pipe
  11. Restore STDIN_FILENO
-***In case of more than 3 pipelines two pipes are used to follow the same logic.**
+
+***In case of multiple pipelines two pipes are used to follow the same logic.**
 
 ## Code style 👓
 
