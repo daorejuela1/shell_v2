@@ -7,7 +7,7 @@
 
 > **(A custom shell based on bash.)**
 
-Shell v2 is an advance command interpreter that executes commands that are read from the standard input, handles redirections `(>, >>, <, <<)`, pipelines `(|)`, multi-command input `(cmd ; cmd2 ; cmd3)`, variable replacement  `($?, $$, $VAR)` and comments `(#)`.
+Shell v2 is an advance command interpreter that executes commands that are read from the standard input, handles redirections `(>, >>, <, <<)`, pipelines `(|)`, multi-command input `(cmd ; cmd2 ; cmd3)`, variable replacement  `($?, $$, $VAR)`, logic operators `(&&, ||)` and comments `(#)`.
 
 Shell v2 will execute directly any binary file that you want to execute in your system if it can find it directly, or is listed in the PATH environment variable. Each input receive in interactive mode will issue a prompt and increase the line counter, if a command can not be found or execute it will return the line counter, and the respective error message immediately.
 
@@ -21,6 +21,61 @@ Shell v2 will execute directly any binary file that you want to execute in your 
 ## Motivation 🏋
 
 Default Shells like Bash or Zsh are programs that take care of a lot of cases, customization and input parsing, re-creating from scratch one so complex is a really hard task. In order to customize even more a Shell it would be better to start from a base but my motivation is to deeply understand how a Shell works under the hood and what system calls are needed to perform every action.
+
+## Main logic 🧠
+
+
+Let's suppose we have this input: `ls; ls > hello; ls | rev # hello world `
+
+ 1. The command will be saved in history
+ 2. The parser will remove every comment from the input
+ 3. The parser will separate indicating status by those special characters in nodes of a linked list every command
+
+![Linked list example](res/linked_listexample.png)
+
+According to the status flag, it will go to a different operator in the operator function.
+
+### Status -> Right redirection
+
+ 1. Store a backup of STODUT_FILENO
+ 2. Create a new file indicated by the redirection
+ 3. Duplicate STDOUT_FILENO into the new file FD
+ 4. Execute the command
+ 5. Restore STDOUT_FILENO
+
+***Double right redirection is the same but the file is opened on append mode.**
+
+### Status -> Left redirection
+
+ 1. Store a backup of STDIN_FILENO
+ 2. Read the `filename` on the right part of the redirection
+ 3. Duplicate STDIN_FILENO into the new file FD
+ 4. Execute the command
+ 5. Restore STDIN_FILENO
+
+### Status -> HEREDOC
+
+ 1. Store a backup of STDIN_FILENO
+ 2. Create a temp file `/tmp/shell_v2heredoc_daor1475` 
+ 3. While the user input is different from the HEREDOC delimiter ask for input
+ 4. Duplicate STDIN_FILENO into the new file FD
+ 5. Execute the command
+ 6. Restore STDIN_FILENO
+
+### Status -> Pipeline
+
+ 1. Create the pipe
+ 2. Backup STDOUT_FILENO
+ 3. Duplicate STDOUT_FILENO into the writing-end of the pipe
+ 4. close writing-end of the pipe
+ 5. Execute the command
+ 6. Restore STDOUT_FILENO
+ 7. Backup STDIN_FILENO
+ 8. Duplicate STDIN_FILENO into the reading-end of the pipe
+ 9. close reading-end of the pipe
+ 10. Execute the command to the right of the pipe
+ 11. Restore STDIN_FILENO
+***In case of more than 3 pipelines two pipes are used to follow the same logic.**
 
 ## Code style 👓
 
