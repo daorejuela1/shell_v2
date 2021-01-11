@@ -1,235 +1,188 @@
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity) [](http://lbesson.bitbucket.org/) [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/) [![Awesome Badges](https://img.shields.io/badge/badges-awesome-green.svg)](https://github.com/Naereen/badges)  [![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://GitHub.com/Naereen/)
+<p align="center">
+  <img width="60%" src="res/logo.png">
+</p>
 
-#  0x16. C - Simple Shell
-![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)
+#  Shell v2 
 
-## Resources
+> **(A custom shell based on bash.)**
 
-**Read or watch**:
+Shell v2 is an advance command interpreter that executes commands that are read from the standard input, handles redirections (>, >>, <, <<), pipelines (|), multi-command input (cmd ; cmd2 ; cmd3), variable replacement  ($?, $$, $VAR) and comments (#).
 
-* [Unix shell](https://intranet.hbtn.io/rltoken/RsZhUQ_26du3YUYKXO3gXA "Unix shell")
-* [Thompson shell](https://intranet.hbtn.io/rltoken/CNhUqQ5TFpdvFGsd1Meyig "Thompson shell")
-* [Ken Thompson](https://intranet.hbtn.io/rltoken/G_kMmrcR7rm3uXsiVk1F0w "Ken Thompson")
-* [Everything you need to know to start coding your own shell](https:///rltoken/NLmjz6DsgyNjdD7GwL6VRA)
+Shell v2 will execute directly any binary file that you want to execute in your system if it can find it directly, or is listed in the PATH environment variable. Each input receive in interactive mode will issue a prompt and increase the line counter, if a command can not be found or execute it will return the line counter, and the respective error message immediately.
 
-**man or help**:
+### Team 🎮
 
-* `sh`  (_Run  `sh`  as well_)
+ [David Orejuela](https://github.com/daorejuela1) <br>  Software Developer|
+| -------------- | -------------- | ------------ |------------------- | --------- |
+ ![David Orejuela](res/David.jpg)
+| <a href="https://twitter.com/DavidOrejuela14" ><img style="display: inline-block;" src="res/twitter.png" width="35px"></a> &nbsp;<a href="https://www.linkedin.com/in/davidorejuela14/" ><img style="display: inline-block;" src="res/linkedin.png" width="42px"></a> <a href="https://medium.com/@daorejuela1" ><img style="display: inline-block;" src="res/medium.png" width="35px"></a>|
 
-## General Requirements
+## Motivation 🏋
 
+Default Shells like Bash or Zsh are programs that take care of a lot of cases, customization and input parsing, re-creating from scratch one so complex is a really hard task. In order to customize even more a Shell it would be better to start from a base but my motivation is to deeply understand how a Shell works under the hood and what system calls are needed to perform every action.
 
-*  All files will be compiled on **Ubuntu** 14.04 LTS
-* C programs and functions will be compiled with  `**gcc**`  using the flags  `-Wall`  `-Werror``-Wextra`  `and -pedantic`
-* Files should end with a new line
-* Use the  `Betty`  style. 
-* The shell should not have any memory leaks
-* No more than 5 functions per file
-* All header files should be include guarded
-* Use system calls only when if needed to ([why?](https://intranet.hbtn.io/rltoken/StgX3y26fwPNV_DqlZLErw "why?"))
+## Code style 👓
 
 
-### List of allowed functions and system calls
+Betty  ☞ [![Betty](https://badgen.net/badge/betty/betty/red?icon=github)](https://github.com/holbertonschool/Betty)
 
--   `access`  (man 2 access)
--   `chdir`  (man 2 chdir)
--   `close`  (man 2 close)
--   `closedir`  (man 3 closedir)
--   `execve`  (man 2 execve)
--   `exit`  (man 3 exit)
--   `_exit`  (man 2 _exit)
--   `fflush`  (man 3 fflush)
--   `fork`  (man 2 fork)
--   `free`  (man 3 free)
--   `getcwd`  (man 3 getcwd)
--   `getline`  (man 3 getline)
--   `isatty`  (man 3 isatty)
--   `kill`  (man 2 kill)
--   `malloc`  (man 3 malloc)
--   `open`  (man 2 open)
--   `opendir`  (man 3 opendir)
--   `perror`  (man 3 perror)
--   `read`  (man 2 read)
--   `readdir`  (man 3 readdir)
--   `signal`  (man 2 signal)
--   `stat`  (__xstat) (man 2 stat)
--   `lstat`  (__lxstat) (man 2 lstat)
--   `fstat`  (__fxstat) (man 2 fstat)
--   `strtok`  (man 3 strtok)
--   `wait`  (man 2 wait)
--   `waitpid`  (man 2 waitpid)
--   `wait3`  (man 2 wait3)
--   `wait4`  (man 2 wait4)
--   `write`  (man 2 write)
+## Demo📷
+<center>
+
+## Simple Commands
+<p style="font-size:25px; font-weight:bold"> 
+<img style="display: inline-block;" src="/res/simple_commands.gif">
+</p>
+
+--------------
+
+## Pipelines
+<p style="font-size:25px; font-weight:bold">
+<img style="display: inline-block;" src="/res/pipelines.gif">
+</p>
+
+---
+
+## Comments
+<p style="font-size:25px; font-weight:bold">
+<img style="display: inline-block;" src="/res/comments.gif">
+</p>
+
+---
+
+## Variable expansion
+<p style="font-size:25px; font-weight:bold">
+<img style="display: inline-block;" src="/res/expansions.PNG">
+</p>
+
+---
+
+## Redirection
+<p style="font-size:25px; font-weight:bold"> 
+<img style="display: inline-block;" src="/res/redirections.gif">
+</p>
+
+---
+
+## Aliases
+<p style="font-size:25px; font-weight:bold"> 
+<img style="display: inline-block;" src="/res/aliases.gif">
+</p>
+</center>
+
+## Tech used 🛠
+
+![Software architecture](res/GCC_logo.png)
+
+This C program is created under GCC version 4.8.4 (Ubuntu 4.8.4-2ubuntu1~14.04.4) with the use of the follow system calls:
+
+-   `access`
+-   `chdir`
+-   `close`
+-   `execve`
+-   `fork`
+-   `stat`  
+-   `open`
+-   `read`
+-   `wait`
+-   `write`
+-   `dup`
+-   `dup2`
+-   `pipe`
+-   `getpid`
+-   `__errno_location`  (errno macros)
+-   `closedir`
+-   `exit`
+-   `free`
+-   `getcwd`
+-   `getline`
+-   `malloc`
+-   `perror`
+-   `strtok`
+-   `isatty`
+-   `printf`
+-   `fflush`
+-   `fprintf`
 
 
-### General Learning Objectives
+## Requirements 📚
 
--   Who designed and implemented the original Unix operating system
--   Who wrote the first version of the UNIX shell
--   Who invented the B programming language (the direct predecessor to the C programming language)
--   Who is Ken Thompson
--   How does a shell work
--   What is a pid and a ppid
--   How to manipulate the environment of the current process
--   What is the difference between a function and a system call
--   How to create processes
--   What are the three prototypes of  `main`
--   How does the shell use the  `PATH`  to find the programs
--   How to execute another program with the  `execve`  system call
--   How to suspend the execution of a process until one of its children terminates
--   What is  `EOF`  / “end-of-file”?
+- Ubuntu 14.04+
+- GCC version 4.8.4
 
+## Installation & Init 📖
 
-![Shell](https://i.ibb.co/LN4TNFb/Shell.png)
+Please make sure that you have installed the essentials before cloning:
 
-###  Who designed and Implemented original Unix operation system?
+```
+sudo apt-get install build-essential
+```
 
-[Ken Thompson](https://en.wikipedia.org/wiki/Ken_Thompson),  [Dennis Ritchie](https://en.wikipedia.org/wiki/Dennis_Ritchie), [Brian Kernighan](https://en.wikiquote.org/wiki/Brian_Kernighan) and [Douglas McIlroy](https://en.wikiquote.org/wiki/Doug_McIlroy) at Bell Labs
+1. Clone the repository: `https://github.com/daorejuela1/shell_v2/`
+2. Go to the folder: `cd shell_v2`
+3. Compile the application: `make`
 
-The development began in 1969 and published internally in November 1971 and then announced to the world in October 1973 by Bell Labs.
+## Usage 💪
 
-### Who wrote the first version of the UNIX shell
-The first Unix shell was the sh, written by Ken Thompson computer programmer at [Bell Labs](https://en.wikipedia.org/wiki/Bell_Labs) and distributed with Versions 1 through 6 of Unix, from 1971 to 1975. Tough rudimentary by modern standards, it introduced many of the basic features common to all later Unix shells, including piping, simple control structures using `if` and `goto`, and filename wildcarding. Though not in current use, it is still available as part of some [Ancient UNIX Systems] ("Ancient UNIX Systems").
+After successfully executing the `make` command
 
-### Who invented the B programming language (the direct predecessor to the C programming language)
+Execute `./hsh` to start the shell in interactive mode.
 
-Kenneth Lane Thompson is an American pioneer of computer science. He worked at Bell Labs where he designed and implemented the original Unix operating system. He also invented the B programming language, the direct predecessor to the C programming language, and was one of the creators and early developers of the Plan 9 operating systems. Since 2006, Thompson works at Google, where he co-invented the Go programming language.
+If you want to execute the shell in not interactive mode you can do it this ways:
 
-### What is a pid and a ppid
-
-![PID-PPID](https://delightlylinux.files.wordpress.com/2012/06/pid.png)
-
-### How to manipulate the environment of the current process`
-
-The shell uses an environment list that is used to store eviroment variables. This list is an array of strings, with the following format: `var=value`, where `var` is the name of the variable and `value`its value. As a reminder, you can list the environment with the command `printenv`.
-Actually, every process comes with an environment. When a new process is created, it inherits a copy of its parent’s environment. To access the entire environment within a process. Find the options below:
-
-*   via the  `main`  function
-*  via the global variable  `environ`  (man environ)
-
- An [_environment variable_](https://en.wikipedia.org/wiki/Environment_variable) is a variable whose value is set outside the program, typically through functionality built into the operating system or microservice. An environment variable is made up of a name/value pair, and any number may be created and available for reference at a point in time.
-- At runtime, the reference to the environment variable name is replaced with its current value.
-
-### What is the Difference Between System Call and Function Call
-
-The main difference  between system call and function call is that a  **system call is a request for the kernel to access a resource while a function call is a request made by a program to perform a specific task.**
-
-![SYSTEM-FUNCTION-CALL](https://pediaa.com/wp-content/uploads/2019/05/Difference-Between-System-Call-and-Function-Call-Comparison-Summary_1.jpg)
-
-###   How to create processes
-
-![CHILD-PROCESS](https://i.ibb.co/0tktK2X/child-process.png)
+ 1. `./hsh [FILENAME]`
+    
+   2. `echo [COMMAND] | ./hsh`
+    
+   3. `cat [FILENAME] | ./hsh`
+---
+To read the man page use:  `man ./man_1_hsh`
+## Features 📜
  
-The system call `fork` creates a new child process, almost identical to the parent (the process that calls `fork`). Once `fork` successfully returns, two processes continue to run the same program, but with different stacks, datas and heaps.
+ ### Built-in commands
+ 
+This shell contains builtins commands to perform certain action which means that instead of using binary files, the same shell is in charge of performing the actions:
 
-Using the return value of `fork`, it is possible to know if the current process is the father or the child: `fork` will return `0` to the child, and the PID of the child to the father.
+|Name| Description | Example |
+|--|--| --|
+| alias | Define or display aliases. | alias [name=value] ... [name2=value2]|
+|cd|Change the shell working directory|cd [path]|
+|env|prints all the current environment variables no arguments are needed.| env|
+|exit|Exits the shell with a status of N.  If N is omitted, the exit status is of the last command.| exit [n]|
+|setenv|Sets a new environmental variable.|setenv [name] [value]|
+|unsetenv|Unsets a environmental variable.| unsetenv [name]|
+|help| Display help about the specific command| help [builtin command]|
+|history|Prints the commands used in the session| history|
 
+### Files
 
+ - ~/.hshrc
+         Startup file that's executed before starting the shell v2
+   
+ - ~/.hsh_history
+ File that stores the executed commands
 
-![PIPELINE](https://i.ibb.co/n68HQdm/pipeline.png)
+## Contributing 🧍
 
+Contributions are always welcome!
 
-Shell commands have a very specific purpose. More complicated commands can be constructed by combining simpler commands in a  pipeline (|),  so the output of one command becomes the input to another command. The standard shell syntax for pipelines(|) is to list multiple commands. 
-When the shell runs commands forks  new processes using **exec**,  so  the new process executes the program.
+Please read the [contribution guidelines](CONTRIBUTING.MD) first.
 
-###  What are the three prototypes of  `main`
+## Related projects 💼
 
-`* int main(void)
-*  int main(int ac, char **av)`
-*  int main(int ac, char **av, char **env)
+Here are some awesome projects I have been working on:
 
-### How does the shell use the  `PATH`  to find the programs
+|[Mastermind Hackday Project](https://github.com/daorejuela1/mastermind)| [Daily tweet](https://github.com/daorejuela1/daily_tweet) | [Monty bytecode decoder](https://github.com/daorejuela1/monty) | [Serpent Algorithm](https://github.com/daorejuela1/serpent) | [Custom Shell v1](https://github.com/daorejuela1/simple_shell)
+|--|--|--|--|--|
+| ![Monty project](https://user-images.githubusercontent.com/55990484/93660905-3fd0db00-fa19-11ea-97db-fb3c0169cb4c.gif) | ![Tweet daily](/res/tweet_daily.png) | ![Monty](/res/Monty.jpg) | ![Serpent](/res/serpent.png) | ![Shell](https://user-images.githubusercontent.com/59972435/79511929-ec8bd400-8005-11ea-9361-c97aaccc0607.jpg) |
 
+## Licensing 🔑
 
-There are two types of files those that just contain information and those  that are executable (files that are used to run functions and operations in the machine).
-The PATH variable is basically a list of directories that the computer search in to find an executable that has been requested.
-Any command name that is not built-in, is assumed to be the name of an executable program file, and the shell attempts to find an executable file with that name and runs it. (Shells find and run commands.)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 
-If the command name contains no slashes (like most command names, e.g.  `date`), the shell looks for the executable file with that exact name in the list of directories kept in the  `PATH`  environment variable. Because  `PATH`  is a shell environment variable, you can change the list, and the list is usually exported and inherited by child processes of the shell. Directories in  `PATH`  are separated by colons, e.g. the following  `PATH`  variable contains three directories separated by colons:
+Released in 2021 by @[daorejuela1](https://github.com/daorejuela1)
 
-```
-$ echo "$PATH"
-/usr/local/bin:/bin:/usr/bin
-```
+## Credits ✈
 
-When typing a file with no slashes, shell goes looking for the `executable file in the list of directories kept in the  `PATH`  environment variable, looking for an executable file named to execute. The shell tries each directory in the  `PATH`, left-to-right, and runs the first executable program with the matching command name that it finds.
-
-The shell next tries the second directory name in the  `PATH`  variable (`/bin`) and looks for an executable file named  `/bin/ls`, and this is the usual location of the  ls.
-
-Since this file exists, the shell runs this executable program and ls appears
-
-The **slashes** in the pathname prevent the shell from using  `PATH`  to look up the command name, so the shell executes it  directly.
-
-
-###  How to execute another program with the  `execve`  system call
-
-The system call  `execve`  allows a process to execute another program. This system call loads the new program into the current process’ memory in place of the “previous” program: on success  `execve`  does not return to continue the rest of the “previous” program. The program invoked inherits the calling process’s PID, and any open file descriptors that are not set to close-on-exec. Signals pending on the calling process are cleared. Any signals set to be caught by the calling process are reset to their default behaviour. 
-
-### How to suspend the execution of a process until one of its children terminates
-
-A call to wait() blocks the calling process until one of its child processes exits or a signal is received. After child process terminates, the parent continues  its execution after wait system call instruction.  
-Child process may terminate due to any of these:
-
--   It calls exit();
--   It returns (an int) from main
--   It receives a signal (from the OS or another process) whose default action is to terminate.
-
-###   What is  `EOF`  / “end-of-file”?
-
-It is an acronym for ‘End Of File’. It refers to a state that may occur while reading a file, or anything that can be read using the semantics of file IO, such as reading from devices or streams in Linux. The state can be represented in some cases by a value which equates to that state. There is a C function, `feof()`, whihc can be used to test whether reading from a stream has caused the EOF state to be reached. In certain cases, it is possible to generate an EOF state, such as by typing Ctrl-D to terminate standard input to a process, such as a shell.
-
-Here is an example of our shell: 
-
-<img src="/Images/Test-result.gif?raw=true">
-
-
-## FlowCharts
-
-<img src="/Images/Shell flow chart-main.c.jpg?raw=true">
-main.c flowchart (main logic to capture user information)
-<img src="/Images/Shell flow chart-new_proc.jpg?raw=true">
-create_proc flowchart (main logic to decide if an input is a valid command)
-<img src="/Images/Shell flow chart-process_selector.jpg?raw=true">
-process_selector flowchart (main logic to call another executable file from c code)
-
-## Installation
-
-Execute the following commmand in your terminal:
-
-```
-sudo apt install cowsay && git clone https://github.com/daorejuela1/simple_shell.git && gcc -Wall -Werror -Wextra -pedantic simple_shell/*.c -o simple_shell/hsh
-```
-
-## Execute the simple shell
-
-Afters installing the shell you can run it in interactive mode or non-interactive mode
-
-```
-cd simple_shell/
-./hsh
-$ls
-$exit
-```
-
-```
-cd simple_shell/
-echo "ls" | ./hsh
-```
-## Run example file
-
-To run the example file use:
-```
-cd simple_shell/
-Example/./test
-```
-
-## To Do
-
- - [ ] Read files instead of standar input
- - [ ] Manage pipelines
-
-## Social networks
-
-Follow us on Twitter 
-Karen Campo [![Karen Campo](http://i.imgur.com/tXSoThF.png)](https://twitter.com/KarenCa96752258) David Orejuela [![David Orejuela](http://i.imgur.com/tXSoThF.png)](https://twitter.com/daorejuela14)
-
+Special thanks to [Alexandre Gautier](github.com/Mattrack) for his guidance in the development of this project.
