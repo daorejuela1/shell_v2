@@ -14,7 +14,7 @@ Shell v2 will execute directly any binary file that you want to execute in your 
 ### Team 🎮
 
  [David Orejuela](https://github.com/daorejuela1) <br>  Software Developer|
-| -------------- | -------------- | ------------ |------------------- | --------- |
+| -------------- |
  ![David Orejuela](res/David.jpg)
 | <a href="https://twitter.com/DavidOrejuela14" ><img style="display: inline-block;" src="res/twitter.png" width="35px"></a> &nbsp;<a href="https://www.linkedin.com/in/davidorejuela14/" ><img style="display: inline-block;" src="res/linkedin.png" width="42px"></a> <a href="https://medium.com/@daorejuela1" ><img style="display: inline-block;" src="res/medium.png" width="35px"></a>|
 
@@ -53,7 +53,7 @@ Betty  ☞ [![Betty](https://badgen.net/badge/betty/betty/red?icon=github)](http
 
 ## Variable expansion
 <p style="font-size:25px; font-weight:bold">
-<img style="display: inline-block;" src="/res/expansions.PNG">
+<img style="display: inline-block;" src="/res/expansions.gif">
 </p>
 
 ---
