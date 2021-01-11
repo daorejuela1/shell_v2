@@ -7,7 +7,7 @@
 
 > **(A custom shell based on bash.)**
 
-Shell v2 is an advance command interpreter that executes commands that are read from the standard input, handles redirections (>, >>, <, <<), pipelines (|), multi-command input (cmd ; cmd2 ; cmd3), variable replacement  ($?, $$, $VAR) and comments (#).
+Shell v2 is an advance command interpreter that executes commands that are read from the standard input, handles redirections `(>, >>, <, <<)`, pipelines `(|)`, multi-command input `(cmd ; cmd2 ; cmd3)`, variable replacement  `($?, $$, $VAR)` and comments `(#)`.
 
 Shell v2 will execute directly any binary file that you want to execute in your system if it can find it directly, or is listed in the PATH environment variable. Each input receive in interactive mode will issue a prompt and increase the line counter, if a command can not be found or execute it will return the line counter, and the respective error message immediately.
 
@@ -167,7 +167,7 @@ This shell contains builtins commands to perform certain action which means that
 
 Contributions are always welcome!
 
-Please read the [contribution guidelines](CONTRIBUTING.MD) first.
+Please read the [contribution guidelines](CONTRIBUTING.md) first.
 
 ## Related projects 💼
 
