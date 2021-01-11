@@ -1,11 +1,12 @@
-.Dd 16/4/20               \" DATE
+.Ss Appending Redirected Output
+.Dd 12/1/21               \" DATE
 .Dt ./hsh 1      \" Program name and manual section number
-.Os KC-DO
+.Os DO
 .Sh NAME                 \" Section Header - required - don't modify
 .Nm ./hsh,
 .\" Use .Nm macro to designate other names for the documented program.
-.Nd Holberton Simple Shell a command language interpreter that executes commands that are read
- from the standard input.
+.Nd Shell v2 is an advance command interpreter that executes commands that are read from the standard input, handles redirections (>, >>, <, <<), pipelines (|), multi-command input (cmd ; cmd), variable replacement ($?, $$, $VAR) and comments (#).
+
 .Sh SYNOPSIS             \" Section Header - required - don't modify
 .Nm
 
@@ -14,26 +15,44 @@
 
  ./hsh
 
-echo command | ./hsh
+ ./hsh [FILENAME]
 
-cat file | ./hsh
+ echo [COMMAND] | ./hsh
+
+ cat [FILENAME] | ./hsh
+
+.Sh COPYRIGHT             \" Section Header - required - don't modify
+
+.B 
+
+Copyright 2021 David Orejuela 
+
+.P
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 .Sh DESCRIPTION          \" Section Header - required - don't modify
+
 This manual page explains the
+
 .Nm
-work flow and implementation cases, this program will execute directly any other
-software that you want to execute in your system if it can find it directly, or
-in your PATH environment variable.
+
+work flow and implementation cases, this program will execute directly any binary file that you want to execute in your system if it can find it directly, or in your PATH environment variable.
 
 
-Each input receive in interactive mode will increase the line counter, if a command
-can not be found or execute it will return the line counter, and the respective
+Each input receive in interactive mode will issue a prompt and increase the line counter, if a command
+can not be found or execute it will return the line counter, and the respective error
 message inmediatly.
 
 
-.RI "Can also work in non-interactive mode" by sending data using the standard input.
+.RI "Can also work in non-interactive mode" by sending data to the standard input.
 
 .Sh RETURN VALUE
+
 If you want to exit with an specific exit status you can use:
 Exit Status, in other case the system will return the following status:
 
@@ -156,10 +175,71 @@ process_selector.c  README.md    test_ls_2
 .ul
 built_interr.c  errno_lin_st.c    LICENSE      mem_utils.c         _putchar.c          str_utils.c
 
+.Sh SHELL BUILTIN COMMANDS
+
+This shell contains builtins commands to perform certain action which means that instead of using binary files, the same shell is in charge of performing the actions:
+
+.Ss help
+
+ These ./hsh commands are defined internally.  Type `help' to see this list.
+
+ alias [name=value] ... [name2=value2]
+
+ setenv [name] [value]
+
+ cd [path]
+
+ unsetenv [name] [value]
+
+ env
+
+ history
+
+ exit [n]
+
+.Ss alias
+
+ Define or display aliases.
+
+ Without arguments, `alias' prints the list of aliases
+
+ Otherwise, an alias is defined for each NAME whose VALUE is given
+
+~ alias [name=value] ... [name2=value2]
+
+.Ss cd
+
+ Change the shell working directory
+
+~ cd [path]
+
+.Ss env
+
+ prints all the current environment variables no arguments are needed.
+
+ ~ env
+
+.Ss exit
+
+Exits the shell with a status of N.  If N is omitted, the exit status is of the last command
+
+exit [n]
+
+.Ss setenv
+
+ Sets a new enviromental variable.
+
+~ setenv [name] [value]
+
+.Ss unsetenv
+
+Unsets a enviromental variable.
+
+~ unsetenv [name]
 
 .Sh SHELL GRAMMAR
 
-.SS Simple Commands
+.Ss Simple Commands
 
 
 A simple command is a sequence of optional variable assignments followed by blank-separated
@@ -167,8 +247,95 @@ words and redirections, and terminated by a control operator.
 The first word specifies the command to be executed,
 and is passed as argument zero.
 The remaining words are passed as arguments to the invoked command.
-.Sh SEE ALSO
+.Ss Pipelines
+
+A pipeline is a sequence of one or more commands separated by the control operator |
+
+
 .ul
+~ command [[|] command2 ... ]
+
+ The standard output of command is connected via a pipe to the standard input of command2
+
+.Ss Comments
+
+ A word beginning with # causes that word and all remaining characters on that line to be ignored
+
+.Sh EXPANSION
+
+.Ss Variable expansion
+
+The  `$'  character  introduces  parameter expansion, command substitution, or arithmetic expansion.
+
+.ul
+~ $NAME
+
+.Sh REDIRECTION
+
+Before  a  command  is  executed, its input and output may be redirected using a special notation interpreted by the shell.  Redirection allows commands' file handles to be duplicated, opened, closed, made to refer to different files, and can change the files  the  command reads  from and writes to.
+
+~ ls > ls.bk
+
+ This will store the ls output into the ls.bk file
+
+.Ss Redirecting Input
+
+ Redirection of input causes the file whose name results from the expansion of word to be opened for reading on file descriptor n, or the standard input (file descriptor 0) if n is not specified.
+
+ The general format for redirecting input is:
+
+~ rev < [FILENAME]
+
+.Ss Redirecting Output
+
+ Redirection of output causes the file whose name results from the expansion of word to be opened for writing on file  descriptor  n, or the  standard  output (file descriptor 1) if n is not specified.  If the file does not exist it is created; if it does exist it is truncated to zero size.
+
+ The general format for redirecting output is:
+
+~ ls > [FILENAME]
+
+.Ss Appending Redirected Output
+
+ Redirection  of  output in this fashion causes the file whose name results from the expansion of word to be opened for appending on file descriptor n, or the standard output (file descriptor 1) if n is not specified.  If the file does not exist it is created.
+
+ The general format for appending output is:
+
+~ ls >> [FILENAME]
+
+.Ss Here Documents
+
+ This  type  of  redirection  instructs  the  shell to read input from the current source until a line containing only delimiter (with no trailing blanks) is seen.  All of the lines read up to that point are then used as the standard input for a command.
+
+ The format of here-documents is:
+
+~ cat << [DELIMETER]
+       [LINES...]
+       [LINES...]
+       [LINES...]
+  [DELIMETER]
+
+.Sh Aliases
+
+ Aliases  allow  a string to be substituted for a word when it is used as the first word of a simple command. The shell maintains a list of aliases that may be set and unset with the alias and unalias builtin commands
+
+
+~ alias [Name] [Equivalence]
+
+.Sh SEE ALSO
+
 bash(1)
+
+.Sh FILES
+.ul
+ ~/.hshrc
+ Startup file that's executed before starting the shell v2
+
+.ul
+ ~/.hsh_history
+ File that stores the executed commands
+
 .Sh AUTHOR
-Karen Campo & David Orejuela
+David Orejuela, Software Developer
+
+.ul
+daorejuela1@outlook.com
